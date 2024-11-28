@@ -4,6 +4,8 @@ author: "Celine Wuyts"
 date: today
 date-format: long
 format: 
+  pdf: 
+    documentclass: scrreport
   html:
     theme: 
       - flatly
@@ -33,7 +35,7 @@ dat_raw <- read.table("data/day_X_input.txt", header = FALSE, sep = "")
 
 
 
-
+{{< pagebreak >}}
 
 ```{r}
 

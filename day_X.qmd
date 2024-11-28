@@ -6,6 +6,10 @@ date-format: long
 format: 
   pdf: 
     documentclass: scrreport
+    execute: 
+      echo: false
+      warning: false
+      error: false
   html:
     theme: 
       - flatly
@@ -14,7 +18,13 @@ format:
     self-contained: TRUE
     code-fold: true
     code-tools: true
+    execute: 
+      echo: true
+      warning: false
+      error: false
 ---
+
+
 
 ```{r load_libraries}
 
@@ -22,7 +32,16 @@ library(tidyverse)
 
 ```
 
-# Part 1
+```{r get_labels, echo = FALSE}
+
+labs <- knitr::all_labels()
+labs_1 <- str_subset(labs, "^part_2-", negate = TRUE)
+labs_2 <- str_subset(labs, "^part_1-", negate = TRUE)
+
+labs_1 <- setdiff(labs_1, c("get_labels", "close_out"))
+labs_2 <- setdiff(labs_2, c("get_labels", "close_out"))
+
+```
 
 ```{r read_data, eval = FALSE}
 
@@ -30,14 +49,47 @@ dat_raw <- read.table("data/day_X_input.txt", header = FALSE, sep = "")
 
 ```
 
+{{< pagebreak >}}
+
+::: {.callout-tip}
+## Attribution
+
+This is a solution for [Advent of Code 2024, Day 1](https://adventofcode.com/2024/day/1).
+
+:::
+
+# Part 1
+
+
+::: {.content-visible when-format="pdf"}
+
+## R code
+
+```{r ref.label=labs_1}
+#| eval: false
+#| echo: true
+```
+
+::: 
 
 # Part 2
 
+::: {.content-visible when-format="pdf"}
+
+## R code
+
+```{r ref.label=labs_2}
+#| eval: false
+#| echo: true
+```
+
+::: 
 
 
-{{< pagebreak >}}
 
-```{r}
+# Session information
+
+```{r close_out}
 
 sessionInfo()
 

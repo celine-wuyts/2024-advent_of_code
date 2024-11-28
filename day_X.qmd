@@ -10,7 +10,8 @@ format:
       - styles.scss
     toc: true
     self-contained: TRUE
-  
+    code-fold: true
+    code-tools: true
 ---
 
 ```{r load_libraries}
@@ -21,7 +22,7 @@ library(tidyverse)
 
 # Part 1
 
-```{r read_data}
+```{r read_data, eval = FALSE}
 
 dat_raw <- read.table("data/day_X_input.txt", header = FALSE, sep = "")
 
@@ -29,3 +30,14 @@ dat_raw <- read.table("data/day_X_input.txt", header = FALSE, sep = "")
 
 
 # Part 2
+
+
+
+
+
+```{r}
+
+sessionInfo()
+
+```
+

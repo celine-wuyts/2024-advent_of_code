@@ -1,0 +1,31 @@
+---
+title: "Day x: TITLE"
+author: "Celine Wuyts"
+date: today
+date-format: long
+format: 
+  html:
+    theme: 
+      - flatly
+      - styles.scss
+    toc: true
+    self-contained: TRUE
+  
+---
+
+```{r load_libraries}
+
+library(tidyverse)
+
+```
+
+# Part 1
+
+```{r read_data}
+
+dat_raw <- read.table("data/day_X_input.txt", header = FALSE, sep = "")
+
+```
+
+
+# Part 2

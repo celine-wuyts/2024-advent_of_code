@@ -1,0 +1,149 @@
+---
+title: "Day 1: Historian Hysteria"
+author: "Celine Wuyts"
+date: today
+date-format: long
+format: 
+  pdf: 
+    documentclass: scrreport
+    execute: 
+      echo: false
+      warning: false
+      error: false
+  gfm:
+    execute: 
+      echo: true
+      warning: false
+      error: false
+  html:
+    theme: 
+      - flatly
+      - styles.scss
+    toc: true
+    self-contained: TRUE
+    code-fold: true
+    code-tools: true
+    execute: 
+      echo: true
+      warning: false
+      error: false
+---
+
+
+
+```{r load_libraries}
+
+library(tidyverse)
+```
+
+```{r get_labels, echo = FALSE}
+
+labs <- knitr::all_labels()
+labs_0 <- str_subset(labs, "^part_0-")
+labs_1 <- str_subset(labs, "^part_1-")
+labs_2 <- str_subset(labs, "^part_2-")
+
+labs_1 <- c(labs_0, labs_1)
+labs_2 <- c(labs_0, labs_2)
+```
+
+{{< pagebreak >}}
+
+::: {.callout-tip}
+## Attribution
+
+This is an R solution for [Advent of Code 2024, Day 1](https://adventofcode.com/2024/day/1).
+
+:::
+
+# Part 1
+
+The puzzle input has two columns with location ID numbers.
+
+```{r part_0-read_data}
+
+dat <- read.table("data/day-1_input.txt", header = FALSE, sep = "")
+```
+
+```{r}
+
+glimpse(dat)
+```
+
+Let's sort each column and add a difference variable.
+
+```{r part_1-compute_rowwise_distance}
+
+dat_sorted <- map_df(dat, ~ sort(.))
+dat_sorted <- dat_sorted %>% mutate(diff = abs(V1 - V2))
+```
+```{r}
+
+glimpse(dat_sorted)
+```
+
+Let's compute the total distance between the left list and the right list.
+
+```{r part_1-compute_total_distance}
+
+total_diff <- dat_sorted %>% pull(diff) %>% sum()
+```
+
+The total distance is `r total_diff`.
+
+::: {.content-visible when-format="pdf"}
+
+## R code
+
+```{r ref.label=labs_1}
+#| eval: false
+#| echo: true
+```
+
+::: 
+
+# Part 2
+
+Instead, let's count how often each number from the left list appears in the right list, and add a "similarity" variable by multiplying each number in the left list by the number of times that number appears in the right list.
+
+```{r part_2-compute_rowwise_similarity}
+
+dat_counts <- dat %>% count(V1, name = "n_V1")
+
+dat_counts <- dat_counts %>% 
+  mutate(n_V2 = map_int(V1, ~ sum(.x == dat$V2)),
+         similarity = V1 * n_V2)
+```
+
+```{r}
+
+glimpse(dat_counts)
+```
+
+Let's compute the total similarity score between the left list and the right list.
+
+```{r part_2-compute_total_similarity}
+
+total_similarity <- dat_counts %>% pull(similarity) %>% sum()
+```
+
+The total similarity score is `r total_similarity`.
+
+::: {.content-visible when-format="pdf"}
+
+## R code
+
+```{r ref.label=labs_2}
+#| eval: false
+#| echo: true
+```
+
+::: 
+
+# Session information
+
+```{r close_out}
+
+sessionInfo()
+```
+
